@@ -15,4 +15,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Forward the Rails server default port to the host
   config.vm.network :forwarded_port, guest: 3000, host: 3300
   config.vm.provision "shell", path: "install-dependencies.sh"
+
 end
