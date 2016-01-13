@@ -1,5 +1,5 @@
 echo -e "Configuring dev environment"
-ssk-keygen -t rsa -b 4096 -f ~/.ssh/github 
+ssh-keygen -t rsa -b 4096 -f ~/.ssh/github 
 eval `ssh-agent`
 ssh-add ~/.ssh/github
 echo -e "Copy and paste the following into your github keys:\n"
