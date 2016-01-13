@@ -10,3 +10,5 @@ echo -e "Testing github authentication"
 ssh -T git@github.com
 git clone git@github.com:seadb/.config.git ~/.config
 (cd ~/.config; ./install.sh)
+eval `ssh-agent`
+ssh-add ~/.ssh/github
