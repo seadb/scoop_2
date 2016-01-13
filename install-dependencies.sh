@@ -15,8 +15,7 @@ sudo apt-get --ignore-missing install build-essential git-core curl openssl libs
 #sudo apt-get install imagemagick --fix-missing -y
 
 echo "Installs RVM (Ruby Version Manager) for handling Ruby installation"
-#gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-command curl -sSL https://rvm.io/mpapis.asc | gpg --import -
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 curl -sSL https://get.rvm.io | bash -s stable
 source ~/.rvm/scripts/rvm
 
@@ -26,6 +25,7 @@ rvm use 2.2.2 --default
 
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
 gem install bundler
+# install old version of rails since the new ones don't work
 gem install rails -v 4.1.14
 
 echo -e "\n- - - - - -\n"
