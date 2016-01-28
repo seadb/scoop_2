@@ -12,6 +12,7 @@ ride-sharing app
 1. Clone this repo ```git clone git@github.com:seadb/scoop.git```
 2. Create the virtual machine ```vagrant up``` 
 3. Connect to the virtual machine ```vagrant ssh``` 
-4. (Optional) Configure the dev-environment ```./configure-dev-env.sh```
+4. Install dependencies with ```./install-dependencies.sh```
+5. (Optional) Configure the dev-environment ```./configure-dev-env.sh```
 Follow the instructions which will help you set up ssh-keys and configure 
 development tools like vim, tmux, and git with custom settings.
