@@ -72,18 +72,18 @@ export default React.createClass({
             <div className="sign-in-box">
               <div className="row header">
                 <div className="col-md-4 col-md-offset-4">
-                  <img src="/logo.png" />
+                  <img src="/carpool.gif" />
                 </div>
               </div>
               <div className="row header">
                 <div className="col-md-2 col-md-offset-5">
-                  <img src="/basejs.svg" />
+                  scoop
                 </div>
               </div>
               <div className="row header-tagline">
                 <div className="col-md-12">
                     <h2>
-                      An open-source, security focused, web application starter kit.<br/>Built with ReactJS, Flux, Express, and Postgres.
+                      Ridesharing made simple.<br/>Built with ReactJS, Flux, Express, and Postgres.
                     </h2>
                 </div>
               </div>
