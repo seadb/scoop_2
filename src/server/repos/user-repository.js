@@ -18,19 +18,43 @@ function UserRepository () {
               .then(function(result) {
                   if(result && result[1] && result[1].rows && result[1].rows.length == 1) {
                     return result[1].rows[0];
-                  } else {
+                  }
+                  else {
                     return null;
                   }
               })
               .then(function(userRow){
                   if(userRow){
                     return mapper.mapToUserAsync(userRow);
-                  } else {
+                  }
+                  else {
                     return null;
                   }
               });
   };
 
+  this.getUserForId = function(userId) {
+    var sql = 'SELECT users.* FROM users ' +
+                'WHERE "id" = $1';
+
+    return query(sql, [userId])
+            .then(function(result) {
+              if(result && result[1] && result[1].rows && result[1].rows.length == 1) {
+                return result[1].rows[0];
+              }
+              else {
+                return null;
+              }
+            })
+            .then(function(userRow) {
+              if(userRow) {
+                return mapper.mapToUserAsync(userRow);
+              }
+              else {
+                return null;
+              }
+            });
+  };
   this.getUserForEmail = function(emailAddress) {
 
     var sql = 'SELECT users.* FROM users ' +
