@@ -37,6 +37,14 @@ router.get('/users/me/items', IsAuthenticated, function(req, res, next) {
 
 });
 
+router.get('/users/:id', IsAuthenticated, function(req, res, next) {
+  var userId = req.params.id;
+  var userRepo = new UserRepository();
+  userRepo.getUserForId(userId)
+    .then(function(user){
+      res.json(user);
+    });
+});
 
 
 module.exports = router;
