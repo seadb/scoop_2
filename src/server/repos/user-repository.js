@@ -37,27 +37,25 @@ function UserRepository () {
                 'WHERE "email_address" = $1';
 
     var paramsArray = [emailAddress];
-
     return query(sql, paramsArray)
-              .then(function(result) {
-
-                  if(result && result[1] && result[1].rows && result[1].rows.length == 1) {
-
-                    return result[1].rows[0];
-                  } else {
-
-                    return null;
-                  }
-              })
-              .then(function(userRow){
-                  if(userRow){
-
-                    return mapper.mapToUserAsync(userRow);
-                  } else {
-                    return null;
-                  }
-              });
+            .then(function(result) {
+              if(result && result[1] && result[1].rows && result[1].rows.length == 1) {
+                return result[1].rows[0];
+              } 
+              else {
+                return null;
+              }
+            })
+            .then(function(userRow) {
+              if(userRow) {
+                return mapper.mapToUserAsync(userRow);
+              }
+              else {
+                return null;
+              }
+            });
   };
+
 
 
   this.getUserForEmailAndPassword = function(emailAddress, password) {
@@ -68,22 +66,22 @@ function UserRepository () {
     var paramsArray = [emailAddress, password];
 
     return query(sql, paramsArray)
-              .then(function(result) {
-
-                  if(result && result[1] && result[1].rows && result[1].rows.length == 1) {
-                    return result[1].rows[0];
-                  } else {
-                    return null;
-                  }
-              })
-              .then(function(userRow){
-                  if(userRow){
-
-                    return mapper.mapToUserAsync(userRow);
-                  } else {
-                    return null;
-                  }
-              });
+            .then(function(result) {
+              if(result && result[1] && result[1].rows && result[1].rows.length == 1) {
+                return result[1].rows[0];
+              }
+              else {
+                return null;
+              }
+            })
+            .then(function(userRow) {
+              if(userRow) {
+                return mapper.mapToUserAsync(userRow);
+              }
+              else {
+                return null;
+              }
+            });
   };
 
   this.createUser = function(emailAddress, password){
@@ -95,20 +93,22 @@ function UserRepository () {
 
       var params = [emailAddress, password, emailAddress];
       return query(sql, params)
-                .then(function(result){
-                    if(result && result[1] && result[1].rows && result[1].rows.length == 1){
-                      return result[1].rows[0];
-                    } else {
-                      throw new Error('There was a problem creating the user');
-                    }
-                })
-                .then(function(userRow){
-                  if(userRow){
-                    return mapper.mapToUserAsync(userRow);
-                  } else{
-                    return null;
-                  }
-                });
+              .then(function(result){
+                if(result && result[1] && result[1].rows && result[1].rows.length == 1) {
+                  return result[1].rows[0];
+                }
+                else {
+                  throw new Error('There was a problem creating the user');
+                }
+              })
+              .then(function(userRow){
+                if(userRow) {
+                  return mapper.mapToUserAsync(userRow);
+                }
+                else {
+                  return null;
+                }
+              });
   };
 
   //this will Insert a user and return the new row or return an existing row based on the provider id
@@ -128,23 +128,25 @@ function UserRepository () {
                 '    returning users.* ' +
                 ') ' +
                 'select i.* from i union all select s.* from s;';
-
-      return query(sql, [authProviderName, authProviderName, providerUserId, providerUserId, emailAddress, firstName, lastName])
-                .then(function(result){
-
-                    if(result && result[1] && result[1].rows && result[1].rows.length == 1){
-                      return result[1].rows[0];
-                    } else {
-                      throw new Error('There was a problem creating the user');
-                    }
-                })
-                .then(function(userRow){
-                  if(userRow){
-                    return mapper.mapToUserAsync(userRow);
-                  } else{
-                    return null;
-                  }
-                });
+      queryParams = [authProviderName, authProviderName, providerUserId,
+        providerUserId, emailAddress, firstName, lastName];
+      return query(sql, queryParams)
+           .then(function(result){
+             if(result && result[1] && result[1].rows && result[1].rows.length == 1) {
+               return result[1].rows[0];
+             }
+             else {
+               throw new Error('There was a problem creating the user');
+             }
+           })
+           .then(function(userRow){
+             if(userRow) {
+               return mapper.mapToUserAsync(userRow);
+             }
+             else {
+               return null;
+             }
+           });
   };
 
   this.updateUser = function(emailAddress, firstName, lastName, authProviderName, providerUserId) {
@@ -158,26 +160,26 @@ function UserRepository () {
 
     if(!validator.isEmail(emailAddress) && !validator.isNull(emailAddress)){
       throw new Error('This is not a valid email address');
-
-    } else {
-      return query(sql, [emailAddress, firstName, lastName, authProviderName, providerUserId])
-              .then(function(result){
-
-                  if(result && result[1] && result[1].rows && result[1].rows.length == 1){
-                    return result[1].rows[0];
-                  } else {
-                    throw new Error('There was a problem updating the user');
-                  }
-              })
-              .then(function(userRow){
-                if(userRow){
-                  return mapper.mapToUserAsync(userRow);
-                } else{
-                  return null;
-                }
-              });
     }
-
+    else {
+      return query(sql, [emailAddress, firstName, lastName, authProviderName, providerUserId])
+           .then(function(result){
+             if(result && result[1] && result[1].rows && result[1].rows.length == 1) {
+               return result[1].rows[0];
+             }
+             else {
+               throw new Error('There was a problem updating the user');
+             }
+           })
+           .then(function(userRow){
+             if(userRow) {
+               return mapper.mapToUserAsync(userRow);
+             }
+             else {
+               return null;
+             }
+           });
+    }
   };
 
 
