@@ -11,12 +11,16 @@ import User from '../models/user';
 
 var EventEmitter = Events.EventEmitter;
 var _me = new User();
+var _user = new User();
 
 // Public Getters
 const UserStore = assign({}, EventEmitter.prototype, {
 
   getMe: function() {
     return _me;
+  },
+  getUser: function() {
+    return _user;
   }
 });
 
@@ -29,7 +33,7 @@ const DispatcherCallBack = function (payload) {
     case ActionTypes.ME_RES:
 
         var user = action.data;
-        if(user){
+        if(user) {
           _me.emailAddress = user.emailAddress;
           _me.firstName = user.firstName;
           _me.lastName = user.lastName;
@@ -39,14 +43,31 @@ const DispatcherCallBack = function (payload) {
 
     case ActionTypes.ME_ERR:
         var err = action.data;
-        if(err){
+        if(err) {
           UserStore.emit(ActionTypes.ME_ERR);
+        }
+      break;
+
+    case ActionTypes.USER_RES:
+      var user = action.data;
+        if(user) {
+          _user.emailAddress = user.emailAddress;
+          _user.firstName = user.firstName;
+          _user.lastName = user.lastName;
+          UserStore.emit(ActionTypes.USER_RES);
+        }
+      break;
+
+    case ActionTypes.USER_ERR:
+        var err = action.data;
+        if(err) {
+          UserStore.emit(ActionTypes.USER_ERR);
         }
       break;
 
     case ActionTypes.SIGNUP_RES:
         var user = action.data;
-        if(user){
+        if(user) {
           _me.emailAddress = user.emailAddress;
           _me.firstName = user.firstName;
           _me.lastName = user.lastName;
@@ -56,7 +77,7 @@ const DispatcherCallBack = function (payload) {
 
     case ActionTypes.SIGNUP_ERR:
         var err = action.data;
-        if(err){
+        if(err) {
           console.log('Sign-up error: ' + JSON.stringify(err));
           UserStore.emit(ActionTypes.SIGNUP_ERR);
         }
@@ -64,7 +85,7 @@ const DispatcherCallBack = function (payload) {
 
     case ActionTypes.SIGNIN_RES:
         var user = action.data;
-        if(user){
+        if(user) {
           _me.emailAddress = user.emailAddress;
           _me.firstName = user.firstName;
           _me.lastName = user.lastName;
@@ -74,7 +95,7 @@ const DispatcherCallBack = function (payload) {
 
     case ActionTypes.SIGNIN_ERR:
         var err = action.data;
-        if(err){
+        if(err) {
           
           UserStore.emit(ActionTypes.SIGNIN_ERR);
         }
@@ -82,7 +103,7 @@ const DispatcherCallBack = function (payload) {
 
     case ActionTypes.SIGNOUT_RES:
         var res = action.data;
-        if(_.isEmpty(res)){
+        if(_.isEmpty(res)) {
           UserStore.emit(ActionTypes.SIGNOUT_RES);
         }
         break;

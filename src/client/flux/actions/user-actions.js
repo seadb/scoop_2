@@ -20,6 +20,19 @@ module.exports = {
       });
   },
 
+  getUser: function(userId) {
+    https.get('/api/v1/users/' + userId)
+      .accept('application/json')
+      .end((err, res) => {
+        if(!err && !res.error) {
+          Dispatcher.handleServerAction({ actionType: ActionTypes.USER_RES, data: res.body });
+        }
+        else{
+          Dispatcher.handleServerAction({ actionType: ActionTypes.USER_ERR, data: res.error });
+        }
+      });
+  },
+
   signUp: function(emailAddress, password){
 
     https.post('/auth/signup')

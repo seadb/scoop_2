@@ -8,6 +8,7 @@ import UserHome from './components/user-home';
 import SignIn from './components/sign-in';
 import SignUp from './components/sign-up';
 import Error from './components/error';
+import UserProfile from './components/user-profile';
 
 var DefaultRoute = Router.DefaultRoute;
 var Link = Router.Link;
@@ -19,6 +20,7 @@ var routes = (
   <Route name="app" path="/" handler={App}>
     <Route name="sign-up" path="/sign-up" handler={SignUp}/>
     <Route name="user-home" path="/user-home" handler={UserHome}/>
+    <Route name="user" path="/user/:id" handler={UserProfile}/>
     <Route name="error" path="/error" handler={Error}/>
     <DefaultRoute handler={SignIn}/>
   </Route>
