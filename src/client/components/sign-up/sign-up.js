@@ -3,8 +3,11 @@ import './sign-up.less';
 import React from 'react';
 import Bootstrap from 'react-bootstrap';
 import UserActions from '../../flux/actions/user-actions';
+import AuthActions from '../../flux/auth/auth-actions';
 import UserStore from '../../flux/stores/user-store';
+import AuthStore from '../../flux/auth/auth-store';
 import ActionTypes from '../../flux/constants/action-types';
+import AuthConstants from '../../flux/auth/auth-constants';
 
 export default React.createClass({
 
@@ -13,8 +16,8 @@ export default React.createClass({
   },
 
   componentDidMount: function() {
-    UserStore.on(ActionTypes.SIGNUP_RES, this.goToUserHome);
-    UserStore.on(ActionTypes.SIGNUP_ERR, this.onError);
+    AuthStore.on(AuthConstants.REGISTER_RES, this.goToUserHome);
+    AuthStore.on(AuthConstants.REGISTER_ERR, this.onError);
   },
 
   goToUserHome: function() {
@@ -47,7 +50,7 @@ export default React.createClass({
       return;
     }
 
-    UserActions.signUp(email, pass);
+    AuthActions.register(email, pass);
     this.setState({email: '', pass: ''});
   },
 

@@ -4,8 +4,11 @@ import './user-profile.less';
 import React from 'react';
 import Bootstrap from 'react-bootstrap';
 import UserActions from '../../flux/actions/user-actions';
+import AuthActions from '../../flux/auth/auth-actions';
 import UserStore from '../../flux/stores/user-store';
+import AuthStore from '../../flux/auth/auth-store';
 import ActionTypes from '../../flux/constants/action-types';
+import AuthConstants from '../../flux/auth/auth-constants';
 
 export default React.createClass({
 
@@ -18,21 +21,23 @@ export default React.createClass({
 
   componentDidMount: function() {
     if (this.props.params && this.props.params.id) {
+      console.log('user');
       UserStore.on(ActionTypes.USER_RES, this.onGetUser);
       UserActions.getUser(this.props.params.id);
     }
     else {
-      UserStore.on(ActionTypes.ME_RES, this.onGetMe);
-      UserActions.getMe();
+      console.log('me');
+      AuthStore.on(AuthConstants.ME_RES, this.onGetMe);
+      AuthActions.getMe();
     }
   },
 
   onGetMe: function(){
-    this.setState({ me:UserStore.getMe() });
+    this.setState({ me: AuthStore.getMe() });
   },
 
   onGetUser: function() {
-    this.setState({ user:UserStore.getUser() });
+    this.setState({ user: UserStore.getUser() });
   },
 
   render: function() {
@@ -57,6 +62,7 @@ export default React.createClass({
     }
     if (this.state.me) {
       var me = this.state.me;
+      console.log("me: "+me);
       if (me.firstName || me.lastName) {
         usersName = me.firstName + ' ' + me.lastName;
       }

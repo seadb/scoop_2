@@ -3,8 +3,11 @@ import './sign-in.less';
 import React from 'react';
 import Bootstrap from 'react-bootstrap';
 import UserActions from '../../flux/actions/user-actions';
+import AuthActions from '../../flux/auth/auth-actions';
 import UserStore from '../../flux/stores/user-store';
+import AuthStore from '../../flux/auth/auth-store';
 import ActionTypes from '../../flux/constants/action-types';
+import AuthConstants from '../../flux/auth/auth-constants';
 
 export default React.createClass({
 
@@ -13,8 +16,8 @@ export default React.createClass({
   },
 
   componentDidMount: function() {
-    UserStore.on(ActionTypes.SIGNIN_RES, this.goToUserHome);
-    UserStore.on(ActionTypes.SIGNIN_ERR, this.onError);
+    AuthStore.on(AuthConstants.LOGIN_RES, this.goToUserHome);
+    AuthStore.on(AuthConstants.LOGIN_ERR, this.onError);
   },
 
   goToUserHome: function() {
@@ -48,7 +51,7 @@ export default React.createClass({
     }
 
     
-    UserActions.signIn(email, pass);
+    AuthActions.logIn(email, pass);
     this.setState({email: '', pass: ''});
   },
 
