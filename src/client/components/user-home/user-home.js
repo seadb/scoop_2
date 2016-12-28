@@ -3,9 +3,14 @@ import './user-home.less';
 
 import React from 'react';
 import Bootstrap from 'react-bootstrap';
+
 import UserActions from '../../flux/actions/user-actions';
+import AuthActions from '../../flux/auth/auth-actions';
 import UserStore from '../../flux/stores/user-store';
+import AuthStore from '../../flux/auth/auth-store';
 import ActionTypes from '../../flux/constants/action-types';
+import AuthConstants from '../../flux/auth/auth-constants';
+
 import UserProfile from '../user-profile';
 import UserItems from '../user-items';
 
@@ -16,8 +21,8 @@ export default React.createClass({
   },
 
   componentDidMount: function() {
-    UserStore.on(ActionTypes.SIGNOUT_RES, this.goToLogin);
-    UserStore.on(ActionTypes.SIGNOUT_ERR, this.goToError);
+    AuthStore.on(AuthConstants.LOGOUT_RES, this.goToLogin);
+    AuthStore.on(AuthConstants.LOGOUT_ERR, this.goToError);
   },
 
   goToError: function(){
@@ -35,7 +40,7 @@ export default React.createClass({
   },
 
   signOut: function(){
-    UserActions.signOut();
+    AuthActions.logOut();
   },
 
 

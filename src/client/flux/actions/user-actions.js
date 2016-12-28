@@ -6,19 +6,6 @@ import https from 'superagent';
 
 module.exports = {
 
-  getMe: function(){
-    https.get('/api/v1/users/me')
-      .accept('application/json')
-      .end((err, res) => {
-
-        if(!err && !res.error) {
-          Dispatcher.handleServerAction({ actionType: ActionTypes.ME_RES, data: res.body });
-
-        } else{
-          Dispatcher.handleServerAction({ actionType: ActionTypes.ME_ERR, data: res.error });
-        }
-      });
-  },
 
   getUser: function(userId) {
     https.get('/api/v1/users/' + userId)
