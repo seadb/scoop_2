@@ -3,14 +3,14 @@
 import passport from 'passport';
 import googleStrategy from './google/google-strategy.js';
 import facebookStrategy from './facebook/facebook-strategy.js';
-import localSignInStrategy from './local/local-sign-in-strategy.js';
-import localSignUpStrategy from './local/local-sign-up-strategy.js';
+import localLogInStrategy from './local/local-log-in-strategy.js';
+import localRegisterStrategy from './local/local-register-strategy.js';
 
 //auth strategies
 passport.use(googleStrategy);
 passport.use(facebookStrategy);
-passport.use('local-signin', localSignInStrategy);
-passport.use('local-signup', localSignUpStrategy);
+passport.use('local-login', localLogInStrategy);
+passport.use('local-register', localRegisterStrategy);
 
 //serialising and deserialising user objects
 passport.serializeUser(function(user, done) {
