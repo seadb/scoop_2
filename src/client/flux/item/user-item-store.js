@@ -6,9 +6,9 @@ import _ from 'lodash';
 import Events from 'events';
 
 import Dispatcher from '../core/dispatcher';
-import ActionTypes from '../constants/action-types';
-import User from '../models/user';
-import UserItem from '../models/user-item';
+import UserItemConstants from './user-item-constants';
+import User from '../user/user-model';
+import UserItem from './user-item-model';
 
 var EventEmitter = Events.EventEmitter;
 var _userItems = [];
@@ -28,16 +28,16 @@ const DispatcherCallBack = function (payload) {
 
   switch (action.actionType) {
 
-    case ActionTypes.ADD_ITEM_RES:
+    case UserItemConstants.ADD_ITEM_RES:
         var addedItem = action.data;
         if(addedItem){
-          UserItemStore.emit(ActionTypes.ADD_ITEM_RES);
+          UserItemStore.emit(UserItemConstants.ADD_ITEM_RES);
         } else {
-          UserItemStore.emit(ActionTypes.ADD_ITEM_ERR);
+          UserItemStore.emit(UserItemConstants.ADD_ITEM_ERR);
         }
 
         break;
-    case ActionTypes.GET_USER_ITEMS_RES:
+    case UserItemConstants.GET_USER_ITEMS_RES:
         var items = action.data;
         if(items){
 
@@ -49,9 +49,9 @@ const DispatcherCallBack = function (payload) {
             return item;
           });
 
-          UserItemStore.emit(ActionTypes.GET_USER_ITEMS_RES);
+          UserItemStore.emit(UserItemConstants.GET_USER_ITEMS_RES);
         } else {
-          UserItemStore.emit(ActionTypes.GET_USER_ITEMS_ERR);
+          UserItemStore.emit(UserItemConstants.GET_USER_ITEMS_ERR);
         }
 
         break;

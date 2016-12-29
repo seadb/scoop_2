@@ -7,7 +7,7 @@ import Events from 'events';
 
 import Dispatcher from '../core/dispatcher';
 import AuthConstants from './auth-constants';
-import User from '../models/user';
+import User from '../user/user-model';
 
 var EventEmitter = Events.EventEmitter;
 var _me = new User();
@@ -26,6 +26,23 @@ const DispatcherCallBack = function (payload) {
   var action = payload.action;
 
   switch (action.actionType) {
+
+    case AuthConstants.ME_RES:
+        var user = action.data;
+        if(user) {
+          _me.emailAddress = user.emailAddress;
+          _me.firstName = user.firstName;
+          _me.lastName = user.lastName;
+          AuthStore.emit(AuthConstants.ME_RES);
+        }
+      break;
+
+    case AuthConstants.ME_ERR:
+        var err = action.data;
+        if(err) {
+          AuthStore.emit(AuthConstants.ME_ERR);
+        }
+      break;
 
     case AuthConstants.REGISTER_RES:
         var user = action.data;

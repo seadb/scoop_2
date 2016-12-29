@@ -4,9 +4,9 @@ import './user-items.less';
 import React from 'react';
 import Bootstrap from 'react-bootstrap';
 import uuid from 'node-uuid';
-import UserItemStore from '../../flux/stores/user-item-store';
-import UserItemsActions from '../../flux/actions/user-items-actions';
-import ActionTypes from '../../flux/constants/action-types';
+import UserItemStore from '../../flux/item/user-item-store';
+import UserItemActions from '../../flux/item/user-item-actions';
+import UserItemConstants from '../../flux/item/user-item-constants';
 
 export default React.createClass({
 
@@ -18,8 +18,8 @@ export default React.createClass({
 
   componentDidMount: function() {
 
-    UserItemStore.on(ActionTypes.GET_USER_ITEMS_RES, this.refreshItems);
-    UserItemsActions.getUserItems();
+    UserItemStore.on(UserItemConstants.GET_USER_ITEMS_RES, this.refreshItems);
+    UserItemActions.getUserItems();
   },
 
   refreshItems: function(){
@@ -29,7 +29,7 @@ export default React.createClass({
   },
 
   addItem: function(){
-    UserItemsActions.addItem('Title ' + this.getRandomString(), 'Description ' + this.getRandomString());
+    UserItemActions.addItem('Title ' + this.getRandomString(), 'Description ' + this.getRandomString());
   },
 
   getRandomString: function(){
