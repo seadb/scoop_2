@@ -4,11 +4,8 @@ import './user-home.less';
 import React from 'react';
 import Bootstrap from 'react-bootstrap';
 
-import UserActions from '../../flux/actions/user-actions';
 import AuthActions from '../../flux/auth/auth-actions';
-import UserStore from '../../flux/stores/user-store';
 import AuthStore from '../../flux/auth/auth-store';
-import ActionTypes from '../../flux/constants/action-types';
 import AuthConstants from '../../flux/auth/auth-constants';
 
 import UserProfile from '../user-profile';
