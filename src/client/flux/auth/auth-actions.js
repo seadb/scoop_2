@@ -29,7 +29,7 @@ var AuthActions = {
   },
 
   register: function(emailAddress, password) {
-    https.post('/auth/signup')
+    https.post('/auth/register')
       .send({ emailAddress: emailAddress, password: password })
       .accept('application/json')
       .end((err, res) => {
@@ -49,7 +49,7 @@ var AuthActions = {
   },
 
   logIn: function(emailAddress, password) {
-    https.post('/auth/signin')
+    https.post('/auth/login')
       .send({ emailAddress: emailAddress, password: password })
       .accept('application/json')
       .end((err, res) => {
@@ -69,7 +69,7 @@ var AuthActions = {
   },
 
   logOut: function() {
-    https.get('/auth/signout')
+    https.get('/auth/logout')
       .accept('application/json')
       .end((err, res) => {
         if (!err && !res.error) {

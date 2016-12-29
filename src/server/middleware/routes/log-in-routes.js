@@ -10,7 +10,7 @@ var router = express.Router();
 
 //callback route after successful google authentication
 //note no redirects can happen on post
-router.post('/signin', passport.authenticate('local-signin', {
+router.post('/login', passport.authenticate('local-signin', {
         session: true
     })
     ,function(req, res) {
@@ -85,8 +85,5 @@ router.get('/facebook/callback', passport.authenticate('facebook', { session: tr
         });
     }
 );
-
-
-
 
 module.exports = router;

@@ -34,9 +34,9 @@ import ConnectPg from 'connect-pg-simple';
 var pgSession = ConnectPg(session);
 import csurf from 'csurf';
 
-import signInRoutes from './middleware/routes/sign-in-routes.js';
-import signOutRoutes from './middleware/routes/sign-out-routes.js';
-import signUpRoutes from './middleware/routes/sign-up-routes.js';
+import logInRoutes from './middleware/routes/log-in-routes.js';
+import logOutRoutes from './middleware/routes/log-out-routes.js';
+import registerRoutes from './middleware/routes/register-routes.js';
 import userRoutes from './middleware/routes/user-routes.js';
 
 import passport from './middleware/auth/passport.js';
@@ -144,9 +144,9 @@ if(nodeEnv === 'development' || nodeEnv === 'production') {
 
 
 // ========= *** ROUTES ***
-server.use('/auth', signInRoutes);
-server.use('/auth', signOutRoutes);
-server.use('/auth', signUpRoutes);
+server.use('/auth', logInRoutes);
+server.use('/auth', logOutRoutes);
+server.use('/auth', registerRoutes);
 server.use('/api/v1', userRoutes);
 
 //Error handler middle ware
