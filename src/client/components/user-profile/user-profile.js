@@ -3,11 +3,11 @@ import './user-profile.less';
 
 import React from 'react';
 import Bootstrap from 'react-bootstrap';
-import UserActions from '../../flux/actions/user-actions';
+import UserActions from '../../flux/user/user-actions';
 import AuthActions from '../../flux/auth/auth-actions';
-import UserStore from '../../flux/stores/user-store';
+import UserStore from '../../flux/user/user-store';
 import AuthStore from '../../flux/auth/auth-store';
-import ActionTypes from '../../flux/constants/action-types';
+import UserConstants from '../../flux/user/user-constants';
 import AuthConstants from '../../flux/auth/auth-constants';
 
 export default React.createClass({
@@ -22,7 +22,7 @@ export default React.createClass({
   componentDidMount: function() {
     if (this.props.params && this.props.params.id) {
       console.log('user');
-      UserStore.on(ActionTypes.USER_RES, this.onGetUser);
+      UserStore.on(UserConstants.USER_RES, this.onGetUser);
       UserActions.getUser(this.props.params.id);
     }
     else {

@@ -2,11 +2,12 @@
 
 function IsAuthenticated(req,res,next){
 
-    if(req.isAuthenticated() && req.user){
+    if (req.isAuthenticated() && req.user) {
         next();
-    }else{
+    }
+    else {
         res.status(401);
-        next(new Error('Not Authorised'));
+        next(new Error('Not Authorized'));
     }
 }
 
