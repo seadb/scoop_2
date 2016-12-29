@@ -12,10 +12,7 @@ var router = express.Router();
 //note no redirects can happen on post
 router.post('/login', passport.authenticate('local-signin', { session: true }),
   function(req, res) {
-
       req.logIn(req.user, function(err) {
-
-
         if (err) {
           req.session.messages = "Error";
           return res.json({ error: 'There was an error signing up'});
@@ -28,7 +25,6 @@ router.post('/login', passport.authenticate('local-signin', { session: true }),
 
   }
 );
-
 
 router.post('/connect/local', passport.authenticate('local-signin', {
         session: true,
@@ -48,7 +44,6 @@ router.get('/connect/google', passport.authenticate('google', { scope:
 router.get('/google/callback', passport.authenticate('google', { session: true, failureRedirect: "/error" }),
 
     function(req, res) {
-
         req.logIn(req.user, function(err) {
 
           if (err) {
@@ -60,7 +55,6 @@ router.get('/google/callback', passport.authenticate('google', { session: true, 
           req.session.messages = 'Login successfully';
           return res.redirect('/user-home');
         });
-
     }
 );
 
@@ -69,9 +63,7 @@ router.get('/connect/facebook', passport.authenticate('facebook', { scope : ['em
 
 //callback route after successful google authentication
 router.get('/facebook/callback', passport.authenticate('facebook', { session: true, failureRedirect: "/error" }),
-
     function(req, res) {
-
         req.logIn(req.user, function(err) {
           if (err) {
             req.session.messages = "Error";
