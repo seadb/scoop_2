@@ -40,11 +40,17 @@ export default React.createClass({
     this.setState({ user: UserStore.getUser() });
   },
 
+  onAddFriend: function() {
+    console.log('add friend!');
+    UserActions.addFriend(this.props.params.id);
+  },
+
   render: function() {
 
     var usersName = '';
     var emailAddress = '';
     var bio = '';
+    var addFriendButton = '';
 
     if (this.state.user) {
       var user = this.state.user;
@@ -58,6 +64,9 @@ export default React.createClass({
 
       if (this.state.user.bio) {
         bio = this.state.user.bio
+      }
+      if (this.props.params && this.props.params.id) {
+        addFriendButton = <a onClick={this.onAddFriend}>add Friend</a>
       }
     }
     if (this.state.me) {
@@ -79,6 +88,7 @@ export default React.createClass({
     return (
       <div className={'user-profile'}>
         <img src="/avatar.png" />
+        {addFriendButton}
         <h1>{usersName}</h1>
         <p>{emailAddress}</p>
         <p>{bio}</p>
