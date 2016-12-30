@@ -36,7 +36,8 @@ var createFriendsTable = 'CREATE TABLE IF NOT EXISTS ' +
         'friends(' +
         'from_user_id integer not null references users(id), ' +
         'to_user_id integer not null references users(id), ' +
-        'created timestamp default current_timestamp)';
+        'created timestamp default current_timestamp, ' +
+        'PRIMARY KEY (from_user_id, to_user_id))';
 
 //** Note this session table script follow the format as defined at https://github.com/voxpelli/node-connect-pg-simple/blob/master/table.sql
 //   The node-connect-pg-simple module uses this to persist sessions to our Postgres Database
