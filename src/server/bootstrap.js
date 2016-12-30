@@ -32,6 +32,13 @@ var createItemsTable = 'CREATE TABLE IF NOT EXISTS ' +
         'description VARCHAR(255) null, ' +
         'created timestamp default current_timestamp)';
 
+var createFriendsTable = 'CREATE TABLE IF NOT EXISTS ' + 
+        'friends(' +
+        'from_user_id integer not null references users(id), ' +
+        'to_user_id integer not null references users(id), ' +
+        'created timestamp default current_timestamp, ' +
+        'PRIMARY KEY (from_user_id, to_user_id))';
+
 //** Note this session table script follow the format as defined at https://github.com/voxpelli/node-connect-pg-simple/blob/master/table.sql
 //   The node-connect-pg-simple module uses this to persist sessions to our Postgres Database
 //      Postgres as the session store was used for Base as a
@@ -54,10 +61,12 @@ var dropAuthProvidersLookup = 'DROP TABLE IF EXISTS auth_providers_lookup';
 var dropUsers = 'DROP TABLE IF EXISTS users';
 var dropSession = 'DROP TABLE IF EXISTS session';
 var dropItems = 'DROP TABLE IF EXISTS items';
+var dropFriends = 'DROP TABLE IF EXISTS friends';
 
 //execute data bootstrap
 
 //drop tables
+client.query(dropFriends);
 client.query(dropItems);
 client.query(dropUsers);
 client.query(dropAuthProvidersLookup);
@@ -68,6 +77,7 @@ client.query(dropSession);
 client.query(createAuthProvidersLookup);
 client.query(createUsers);
 client.query(usersIndex);
+client.query(createFriendsTable);
 client.query(createItemsTable);
 client.query(createSessionTable);
 
