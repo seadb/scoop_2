@@ -1,80 +1,44 @@
 'use strict';
 
 import Dispatcher from '../core/dispatcher';
-import ActionTypes from '../constants/action-types';
+import UserConstants from './user-constants';
 import https from 'superagent';
 
 module.exports = {
-
 
   getUser: function(userId) {
     https.get('/api/v1/users/' + userId)
       .accept('application/json')
       .end((err, res) => {
         if(!err && !res.error) {
-          Dispatcher.handleServerAction({ actionType: ActionTypes.USER_RES, data: res.body });
+          Dispatcher.handleServerAction({
+            actionType: UserConstants.USER_RES,
+            data: res.body
+          });
         }
         else{
-          Dispatcher.handleServerAction({ actionType: ActionTypes.USER_ERR, data: res.error });
-        }
-      });
-  },
-
-  signUp: function(emailAddress, password){
-
-    https.post('/auth/signup')
-      .send({ emailAddress: emailAddress, password: password })
-      .accept('application/json')
-      .end((err, res) => {
-
-        if(!err && res && !res.error) {
           Dispatcher.handleServerAction({
-            actionType: ActionTypes.SIGNUP_RES,
-            data: res.body
-          });
-        } else {
-
-          Dispatcher.handleServerAction({
-            actionType: ActionTypes.SIGNUP_ERR,
+            actionType: UserConstants.USER_ERR,
             data: res.error
           });
         }
       });
   },
-
-  signIn: function(emailAddress, password){
-
-    https.post('/auth/signin')
-      .send({ emailAddress: emailAddress, password: password })
+  addFriend: function(userId) {
+    https.post('/api/v1/users/' + userId + '/add')
       .accept('application/json')
       .end((err, res) => {
-
-        if(!err && res && !res.error) {
+        if (!err && res && !res.error) {
           Dispatcher.handleServerAction({
-            actionType: ActionTypes.SIGNIN_RES,
+            actionType: UserConstants.FRIEND_RES,
             data: res.body
           });
-        } else {
-
+        }
+        else {
           Dispatcher.handleServerAction({
-            actionType: ActionTypes.SIGNIN_ERR,
+            actionType: UserConstants.FRIEND_ERR,
             data: res.error
           });
-        }
-      });
-  },
-
-  signOut: function(){
-
-    https.get('/auth/signout')
-      .accept('application/json')
-      .end((err, res) => {
-
-        if(!err && !res.error) {
-          Dispatcher.handleServerAction({ actionType: ActionTypes.SIGNOUT_RES, data: res.body
-          });
-        } else {
-          Dispatcher.handleServerAction({ actionType: ActionTypes.SIGNOUT_ERR, data: res.error });
         }
       });
   },
