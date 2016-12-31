@@ -26,6 +26,16 @@ const DispatcherCallBack = function (payload) {
 
   switch (action.actionType) {
 
+    case UserConstants.FRIEND_RES:
+      console.log(action.data);
+      UserStore.emit(UserConstants.FRIEND_RES);
+      break;
+    case UserConstants.FRIEND_ERR:
+        var err = action.data;
+        if(err) {
+          UserStore.emit(UserConstants.FRIEND_ERR);
+        }
+      break;
     case UserConstants.USER_RES:
       var user = action.data;
         if(user) {

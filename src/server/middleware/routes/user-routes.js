@@ -3,6 +3,7 @@
 import express from 'express';
 import passport from 'passport';
 import UserRepository from '../../repos/user-repository.js';
+import FriendRepository from '../../repos/friend-repository.js';
 import ItemRepository from '../../repos/item-repository.js';
 import IsAuthenticated from '../auth/passport-auth-check.js';
 
@@ -46,5 +47,16 @@ router.get('/users/:id', IsAuthenticated, function(req, res, next) {
     });
 });
 
+router.post('/users/:id/add', IsAuthenticated, function(req, res, next) {
+  var friendRepo = new FriendRepository();
+  console.log("req.user: " + JSON.stringify(req.user))
+  console.log("req.user._id: " + req.user._id)
+  console.log("req.params.id: " + req.params.id)
+  friendRepo.addFriend(req.user._id, req.params.id)
+    .then(function(success) {
+      console.log("FRIEND ADDED!");
+      res.json(success);
+    });
+});
 
 module.exports = router;
