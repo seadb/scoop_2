@@ -35,7 +35,7 @@ function FriendRepository () {
       });
   };
 
-  this.addFriend = function(from, to){
+  this.addFriend = function(from, to) {
 
      var sql = 'INSERT INTO friends (from_user_id, to_user_id) ' +
                'VALUES ($1, $2) RETURNING friends.* ';
@@ -46,21 +46,10 @@ function FriendRepository () {
           if(result && result[1] && result[1].rows &&
               result[1].rows.length == 1) {
             console.log("friend added successfully");
-            return result[1].rows[0];
-          }
-          else {
-            throw new Error('There was a problem adding a friend');
-          }
-        })
-        .then(function(friendRow) {
-          console.log("friendRow: " + JSON.stringify(friendRow));
-          if (friendRow) {
-            console.log("friendRow True");
             return true;
           }
           else {
-            console.log("friendRow false");
-            return false;
+            throw new Error('There was a problem adding a friend');
           }
         });
   };

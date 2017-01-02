@@ -76,11 +76,6 @@ export default React.createClass({
                 <li>Secure sessions</li>
               </ul>
             </div>
-            <div className="footer">
-              <div className="fine-print">
-                <p>Created by @wearejoan</p>
-              </div>
-            </div>
           </div>
           <div className="col-lg-10 container-full right-panel">
             <div className="row">

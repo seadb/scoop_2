@@ -131,15 +131,6 @@ export default React.createClass({
 
             </div>
         </div>
-        <div className="footer">
-          <div className="fine-print">
-            <div className="row ">
-              <div className="col-md-2 col-md-offset-5">
-                <p>Created by @wearejoan</p>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
     );
