@@ -53,6 +53,25 @@ function FriendRepository () {
           }
         });
   };
+
+  this.deleteFriend = function (from, to) {
+    var sql = 'DELETE FROM friends ' +
+              'WHERE from_user_id = $1 ' +
+              'AND to_user_id = $2';
+
+    var params = [from, to];
+    return query(sql, params)
+      .then(function(result) {
+        console.log(result);
+        if (result && result[1] && result[1].rows
+              && result[1].rows.length == 1) {
+              return mapper.mapToUserAsync(result[1].rows[0])
+        }
+        else {
+          return null;
+        }
+      });
+  };
 }
 
 module.exports = FriendRepository;
