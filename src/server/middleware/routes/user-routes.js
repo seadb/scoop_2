@@ -59,4 +59,15 @@ router.post('/users/:id/add', IsAuthenticated, function(req, res, next) {
     });
 });
 
+router.get('/users/:id/delete', IsAuthenticated, function(req, res, next) {
+  var friendRepo = new FriendRepository();
+  console.log("req.user._id: " + req.user._id)
+  console.log("req.params.id: " + req.params.id)
+  friendRepo.deleteFriend(req.user._id, req.params.id)
+    .then( function(data) {
+      console.log(data);
+      res.json(data);
+    });
+});
+
 module.exports = router;
